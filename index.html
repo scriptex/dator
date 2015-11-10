@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+
+	<title>Simple Form Validator</title>
+
+	<link rel="shortcut icon" type="image/x-icon" href="css/images/favicon.ico" />
+
+	<link rel="stylesheet" href="css/validator.css" />
+</head>
+<body>
+	<form action="?" method="post" class="form-validate">
+		<div class="form-row">
+			<label for="field-name" class="form-label">Name</label>
+			
+			<div class="form-controls">
+				<input type="text" class="field" name="field-name" id="field-name" value="" placeholder="Your Name" required data-validate="['name']" />
+			</div><!-- /.form-controls -->
+		</div><!-- /.form-row -->
+		
+		<div class="form-row">
+			<label for="field-email" class="form-label">Email</label>
+			
+			<div class="form-controls">
+				<input type="email" class="field" name="field-email" id="field-email" value="" placeholder="Your Email Address" required data-validate="['email']" />
+			</div><!-- /.form-controls -->
+		</div><!-- /.form-row -->
+		
+		<div class="form-row">
+			<label for="field-phone" class="form-label">Phone</label>
+			
+			<div class="form-controls">
+				<input type="tel" class="field" name="field-phone" id="field-phone" value="" placeholder="Your Phone Number" required data-validate="['phone']" data-type="integer" maxlength="10" />
+			</div><!-- /.form-controls -->
+		</div><!-- /.form-row -->
+
+		<div class="form-row">
+			<label for="field-credit-card" class="form-label">Credit Card</label>
+			
+			<div class="form-controls">
+				<input type="text" class="field" name="field-credit-card" id="field-credit-card" value="" placeholder="Your Credit Card Number" required data-validate="['integer', 'presence(13,19)']" />
+			</div><!-- /.form-controls -->
+		</div><!-- /.form-row -->
+
+		<div class="form-row">
+			<label for="field-cvc" class="form-label">CVC</label>
+			
+			<div class="form-controls">
+				<input type="number" class="field" name="field-cvc" id="field-cvc" value="" placeholder="Your Credit Card CVC Code" required data-validate="['cvc']" data-type="cvc" maxlength="4" />
+			</div><!-- /.form-controls -->
+		</div><!-- /.form-row -->
+
+		<div class="form-row">
+			<label for="field-message" class="form-label">Message</label>
+			
+			<div class="form-controls">
+				<textarea class="field textarea" name="field-message" id="field-message" placeholder="Hello..." required data-validate="['presence']" data-counter="#charcount" maxlength="20"></textarea>
+
+				<p id="charcount">0</p>
+			</div><!-- /.form-controls -->
+		</div><!-- /.form-row -->
+	</form>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+	<script src="js/validator.js"></script>
+
+	<script type="text/javascript">
+		;(function($, window, document, undefined) {
+			var $win = $(window);
+			var $doc = $(document);
+
+			/* 	
+				Validate all forms with "form-validate" classname
+				@param $container {jQuery Obj} - The holder of the form
+				If the holder of the form is a popup or another AJAX content
+				we can simply call the function on AJAX success like this: validateForms($('.popup'));
+			*/
+			function validateForms($container) {
+				$container.find('.form-validate').each(function() {
+					var $form = $(this);
+					
+					var validator = new Validator(this, {
+						classHolder : '.form-controls',
+						validClass  : 'valid',
+						errorClass  : 'error',
+						onSubmit: function(event) {
+							event.preventDefault();
+
+							var isValid = !$form.find('.error').length;
+
+							$form.toggleClass('form-success', isValid);
+
+							if ( isValid ) {
+								$form[0].reset();
+
+								// FORM AJAX POST HERE
+							}
+						}
+					});
+					
+					$form.find('[required]').each(function() {
+						new FieldsEnhancer(this);
+					});
+				});
+			};
+
+			$doc.ready(function() {
+				validateForms($doc);
+			})
+		})(jQuery, window, document);
+	</script>
+</body>
+</html>
