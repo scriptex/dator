@@ -1,0 +1,27 @@
+{
+  "name": "dator",
+  "version": "0.0.1",
+  "description": "Front-end forms validator",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/scriptex/dator.git"
+  },
+  "keywords": [
+    "Form",
+    "Validator",
+    "Front-end",
+    "Validation",
+    "Live",
+    "Validation"
+  ],
+  "author": "Atanas Atanasov <scriptex.bg@gmail.com> (http://atanas.info)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/scriptex/dator/issues"
+  },
+  "homepage": "https://github.com/scriptex/dator#readme"
+}
