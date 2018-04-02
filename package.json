@@ -4,7 +4,7 @@
   "description": "Front-end forms validator",
   "main": "src/index.js",
   "scripts": {
-    "build": "babel src -d dist"
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
@@ -27,7 +27,10 @@
   "devDependencies": {
     "@babel/cli": "^7.0.0-beta.42",
     "@babel/core": "^7.0.0-beta.42",
-    "@babel/preset-env": "^7.0.0-beta.42",
-    "@babel/preset-stage-2": "^7.0.0-beta.42"
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "webpack": "^4.4.1",
+    "webpack-cli": "^2.0.13"
   }
 }
