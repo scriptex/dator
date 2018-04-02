@@ -2,7 +2,7 @@
   "name": "dator",
   "version": "0.0.1",
   "description": "Front-end forms validator",
-  "main": "src/index.js",
+  "main": "dist/bundle.js",
   "scripts": {
     "build": "webpack"
   },
