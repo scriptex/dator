@@ -1,10 +1,11 @@
 {
   "name": "dator",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Front-end forms validator",
   "main": "dist/bundle.js",
   "scripts": {
-    "build": "webpack"
+    "build": "webpack",
+    "start": "webpack --watch"
   },
   "repository": {
     "type": "git",

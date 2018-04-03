@@ -31,7 +31,7 @@ export const addClass = (elm, cls) => {
 };
 
 export const removeClass = (elm, cls) => {
-	if (!hasClass(ele, cls)) {
+	if (!hasClass(elm, cls)) {
 		return;
 	}
 

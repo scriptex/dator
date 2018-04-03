@@ -1,7 +1,7 @@
-import * as utils from './utils';
-import validationTypes from './validation-types';
+import * as utils from './utils.js';
+import validationTypes from './validation-types.js';
 
-class Validator {
+export default class Validator {
 	constructor(
 		form = document.querySelector('form'),
 		settings = {},
@@ -11,8 +11,9 @@ class Validator {
 		this.settings = {
 			validClass: 'is--valid',
 			errorClass: 'is--invalid',
-			classHolder: '.form__row',
 			validatedClass: 'is--validated',
+			watch: false,
+			classHolder: null,
 			beforeValidate: null,
 			onSubmit: null,
 			afterValidate: null,
@@ -22,7 +23,7 @@ class Validator {
 			},
 			...settings
 		};
-		this.formElements = this.form.elements;
+		this.formElements = [...this.form.elements];
 		this.hasJQuery = 'jQuery' in window;
 
 		this.submitHandler = this.submit.bind(this);
@@ -58,9 +59,13 @@ class Validator {
 	bind() {
 		this.form.addEventListener('submit', this.submitHandler, false);
 
+		if (!this.settings.watch) {
+			return this;
+		}
+
 		this.formElements.forEach(element => {
 			const elementType = element.type;
-			const eventName = getEventName(elementType);
+			const eventName = this.getEventName(elementType);
 
 			if (this.hasJQuery) {
 				jQuery(element)
@@ -168,22 +173,15 @@ class Validator {
 
 		if (isValid) {
 			this.setElementValidClass(element);
-
-			if (this.hasJQuery) {
-				jQuery(element).data('validator', { valid: true });
-				jQuery(element).trigger('validate:change', true);
-			} else {
-				element.validator = { valid: true };
-			}
 		} else {
 			this.setElementErrorClass(element);
+		}
 
-			if (this.hasJQuery) {
-				jQuery(element).data('validator', { valid: false });
-				jQuery(element).trigger('validate:change', false);
-			} else {
-				element.validator = { valid: true };
-			}
+		if (this.hasJQuery) {
+			jQuery(element).data('validator', { valid: isValid });
+			jQuery(element).trigger('validate:change', isValid);
+		} else {
+			element.validator = { valid: isValid };
 		}
 
 		return isValid;
@@ -283,7 +281,11 @@ class Validator {
 			element.getAttribute('data-class-holder') ||
 			this.settings.classHolder;
 
-		return utils.findParentBySelector(element, parentSelector);
+		if (!!parentSelector) {
+			return utils.findParentBySelector(element, parentSelector);
+		}
+
+		return element;
 	}
 
 	validate(value, validator, options) {
