@@ -1,6 +1,6 @@
 {
   "name": "dator",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Front-end forms validator",
   "main": "dist/bundle.js",
   "scripts": {
@@ -28,9 +28,10 @@
   "devDependencies": {
     "@babel/cli": "^7.0.0-beta.44",
     "@babel/core": "^7.0.0-beta.44",
-    "babel-loader": "^7.1.4",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-stage-2": "^6.24.1",
+    "@babel/preset-env": "^7.0.0-beta.44",
+    "@babel/preset-stage-2": "^7.0.0-beta.44",
+    "babel-loader": "^8.0.0-beta",
+    "unminified-webpack-plugin": "^2.0.0",
     "webpack": "^4.5.0",
     "webpack-cli": "^2.0.14"
   }

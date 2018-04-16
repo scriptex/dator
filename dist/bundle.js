@@ -1,1 +1,712 @@
-!function(e){var t={};function a(n){if(t[n])return t[n].exports;var r=t[n]={i:n,l:!1,exports:{}};return e[n].call(r.exports,r,r.exports,a),r.l=!0,r.exports}a.m=e,a.c=t,a.d=function(e,t,n){a.o(e,t)||Object.defineProperty(e,t,{configurable:!1,enumerable:!0,get:n})},a.r=function(e){Object.defineProperty(e,"__esModule",{value:!0})},a.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return a.d(t,"a",t),t},a.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},a.p="",a(a.s=3)}([function(e,t,a){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.default={name:/^[a-zA-Z \-']{3,}$/,zip:/^\d{5}$/,presence:/.+/,email:/^[0-9a-zA-Z]+([0-9a-zA-Z]*[-._+])*[0-9a-zA-Z]+@[0-9a-zA-Z]+([-.][0-9a-zA-Z]+)*([0-9a-zA-Z]*[.])[a-zA-Z]{2,6}$/,phone:/^\d{3}[- .]?\d{3}[- .]?\d{4}$/,address:/[a-zA-Z0-9 \-]{5,}/,integer:/^[+-]?\d+$/,float:/^[+-]?(\d+(.\d+)?)/,"credit-card":/^\d{4} \d{4} \d{4} \d{4}$/,cvc:/^\d{3,5}$/}},function(e,t,a){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var n=t.isInArray=function(e,t){for(var a=0,n=e.length;a<n;a++)if(e[a]==t)return!0;return!1},r=(t.findParentBySelector=function(e,t){for(var a=document.querySelectorAll(t),r=e;r&&!n(a,r);)r=r.parentNode;return r},t.hasClass=function(e,t){return e.classList.contains(t)});t.addClass=function(e,t){r(e,t)||e.classList.add(t)},t.removeClass=function(e,t){r(e,t)&&e.classList.remove(t)}},function(e,t,a){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var n,r=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var a=arguments[t];for(var n in a)Object.prototype.hasOwnProperty.call(a,n)&&(e[n]=a[n])}return e},i=function(){function e(e,t){for(var a=0;a<t.length;a++){var n=t[a];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,n.key,n)}}return function(t,a,n){return a&&e(t.prototype,a),n&&e(t,n),t}}(),s=function(e){if(e&&e.__esModule)return e;var t={};if(null!=e)for(var a in e)Object.prototype.hasOwnProperty.call(e,a)&&(t[a]=e[a]);return t.default=e,t}(a(1)),l=a(0),o=(n=l)&&n.__esModule?n:{default:n};var u=function(){function e(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:document.querySelector("form"),a=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{},n=arguments.length>2&&void 0!==arguments[2]?arguments[2]:{};return function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,e),this.form=t,this.settings=r({validClass:"is--valid",errorClass:"is--invalid",validatedClass:"is--validated",watch:!0,classHolder:null,beforeValidate:null,onSubmit:null,afterValidate:null,validationTypes:r({},o.default,n)},a),this.formElements=[].concat(function(e){if(Array.isArray(e)){for(var t=0,a=Array(e.length);t<e.length;t++)a[t]=e[t];return a}return Array.from(e)}(this.form.elements)),this.hasJQuery="jQuery"in window,this.submitHandler=this.submit.bind(this),this.elementChangeHandler=this.elementChange.bind(this),this.init(),this}return i(e,[{key:"init",value:function(){return this.form.setAttribute("novalidate",!0),this.bind(),this}},{key:"getEventName",value:function(e){switch(e){case"color":case"date":case"datetime-local":case"email":case"month":case"number":case"password":case"search":case"tel":case"text":case"textarea":case"time":case"url":case"week":return"input";default:return"change"}}},{key:"bind",value:function(){var e=this;return this.form.addEventListener("submit",this.submitHandler,!1),this.settings.watch?(this.formElements.forEach(function(t){var a=t.type,n=e.getEventName(a);e.hasJQuery?jQuery(t).on(n,e.elementChangeHandler).on("validate",e.elementChangeHandler):t.addEventListener(n,e.elementChangeHandler,!1)}),this):this}},{key:"unbind",value:function(){var e=this;return this.form.removeEventListener("submit",this.submitHandler,!1),this.formElements.forEach(function(t){var a=t.type,n=e.getEventName(a);e.hasJQuery?jQuery(t).off(n,e.elementChangeHandler).off("validate",e.elementChangeHandler):t.removeEventListener(n,e.elementChangeHandler,!1)}),this}},{key:"submit",value:function(e){var t=this.formElements,a=t.length,n=!0;"beforeValidate"in this.settings&&"function"==typeof this.settings.beforeValidate&&this.settings.beforeValidate();for(var r=0;r<a;r++)null!==t[r].getAttribute("required")&&(this.validateElement(t[r])||(n=!1));return s.addClass(this.form,this.settings.validatedClass),n?(s.addClass(this.form,this.settings.validClass),"onSubmit"in this.settings&&"function"==typeof this.settings.onSubmit&&this.settings.onSubmit(e)):(e.preventDefault(),s.removeClass(this.form,this.settings.validClass)),"afterValidate"in this.settings&&"function"==typeof this.settings.afterValidate&&this.settings.afterValidate(),this}},{key:"elementChange",value:function(e){return this.validateElement(e.target),this}},{key:"getElementValidity",value:function(e){var t=e.nodeName.toUpperCase(),a=e.type.toUpperCase(),n=!0;switch(!0){case"TEXTAREA"===t||"INPUT"===t&&("TEXT"===a||"EMAIL"===a||"PASSWORD"===a||"TEL"===a||"NUMBER"===a||"SEARCH"===a):n=this.fieldValidation(e);break;case"INPUT"===t&&"CHECKBOX"===a:n=this.checkboxValidation(e);break;case"INPUT"===t&&"RADIO"===a:n=this.radioValidation(e);break;case"SELECT"===t:n=this.selectValidation(e);break;default:console.error("Can't validate this element!",e)}return n}},{key:"validateElement",value:function(e){var t=this.getElementValidity(e);return t?this.setElementValidClass(e):this.setElementErrorClass(e),this.hasJQuery?(jQuery(e).data("validator",{valid:t}),jQuery(e).trigger("validate:change",t)):e.validator={valid:t},t}},{key:"selectValidation",value:function(e){return!!e.value}},{key:"radioValidation",value:function(e){for(var t=e.name,a=(this.form||document).querySelectorAll('[name="'+t+'"]'),n=!1,r=0;r<a.length;r++)null!==a[r].getAttribute("required")&&a[r].checked&&(n=!0);return n}},{key:"checkboxValidation",value:function(e){return e.checked}},{key:"fieldValidation",value:function(e){var t=!0,a=e.getAttribute("data-validate");if(!a)return t;a=a.replace(/^\['|'\]$/g,"").split(/',\s?'/);for(var n=0;n<a.length;n++){var r=a[n];r.match(/\(([^)]+)\)/)&&(r=r.replace(r.match(/\(([^)]+)\)/)[0],"")),this.validate(e.value,r)||(t=!1),e.value===e.getAttribute("placeholder")&&(t=!1)}return t}},{key:"setElementValidClass",value:function(e){var t=this.getClassHolder(e);return s.addClass(t,this.settings.validClass),s.removeClass(t,this.settings.errorClass),this}},{key:"setElementErrorClass",value:function(e){var t=this.getClassHolder(e);return s.addClass(t,this.settings.errorClass),s.removeClass(t,this.settings.validClass),this}},{key:"getClassHolder",value:function(e){var t=this.settings.classHolder;return t?s.findParentBySelector(e,t):e}},{key:"validate",value:function(e,t){return e.match(this.settings.validationTypes[t])}}]),e}();t.default=u},function(e,t,a){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var n,r=a(2),i=(n=r)&&n.__esModule?n:{default:n};t.default=i.default}]);
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else if(typeof exports === 'object')
+		exports["Validator"] = factory();
+	else
+		root["Validator"] = factory();
+})(window, function() {
+return /******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  // First Name, Last Name, City
+  name: /^[a-zA-Z \-']{3,}$/,
+  // Zip Code
+  zip: /^\d{5}$/,
+  // Select fields, Company Name, Subject, Message, etc
+  presence: /.+/,
+  // Email address
+  email: /^[0-9a-zA-Z]+([0-9a-zA-Z]*[-._+])*[0-9a-zA-Z]+@[0-9a-zA-Z]+([-.][0-9a-zA-Z]+)*([0-9a-zA-Z]*[.])[a-zA-Z]{2,6}$/,
+  // Phone Number - XXX-XXX-XXXX, XXXXXXXXXX, XXX.XXX.XXXX or XXX XXX XXXX formats
+  phone: /^\d{3}[- .]?\d{3}[- .]?\d{4}$/,
+  // Address
+  address: /[a-zA-Z0-9 \-]{5,}/,
+  // Integer Number
+  integer: /^[+-]?\d+$/,
+  // Float Number
+  float: /^[+-]?(\d+(.\d+)?)/,
+  // Credit Card Number
+  'credit-card': /^\d{4} \d{4} \d{4} \d{4}$/,
+  // Credit Card CVC code
+  cvc: /^\d{3,5}$/
+};
+exports.default = _default;
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.removeClass = exports.addClass = exports.hasClass = exports.findParentBySelector = exports.isInArray = void 0;
+
+/**
+ * Check if an element is part of an array
+ *
+ * @param  {Array}  array   Array to search in
+ * @param  {Object} element Element
+ *
+ * @return {Boolean}
+ */
+var isInArray = function isInArray(array, element) {
+  for (var i = 0, len = array.length; i < len; i++) {
+    if (array[i] == element) return true;
+  }
+
+  return false;
+};
+/**
+ * Find parent element by selector
+ *
+ * @param  {Object} elm      DOM Element
+ * @param  {String} selector Selectro
+ *
+ * @return {Object}          DOM Element
+ */
+
+
+exports.isInArray = isInArray;
+
+var findParentBySelector = function findParentBySelector(elm, selector) {
+  var all = document.querySelectorAll(selector);
+  var cur = elm;
+
+  while (cur && !isInArray(all, cur)) {
+    cur = cur.parentNode;
+  }
+
+  return cur;
+};
+/**
+ * Check if element has class
+ *
+ * @param  {Object} elm DOM Element
+ * @param  {String} cls Classname
+ *
+ * @return {Boolean}
+ */
+
+
+exports.findParentBySelector = findParentBySelector;
+
+var hasClass = function hasClass(elm, cls) {
+  return elm.classList.contains(cls);
+};
+/**
+ * Add class to an element
+ *
+ * @param  {Object} elm DOM Element
+ * @param  {String} cls Classname
+ *
+ * @return {Void}
+ */
+
+
+exports.hasClass = hasClass;
+
+var addClass = function addClass(elm, cls) {
+  if (hasClass(elm, cls)) {
+    return;
+  }
+
+  elm.classList.add(cls);
+};
+/**
+ * Remove class from an element
+ *
+ * @param  {Object} elm DOM Element
+ * @param  {String} cls Classname
+ *
+ * @return {Void}
+ */
+
+
+exports.addClass = addClass;
+
+var removeClass = function removeClass(elm, cls) {
+  if (!hasClass(elm, cls)) {
+    return;
+  }
+
+  elm.classList.remove(cls);
+};
+
+exports.removeClass = removeClass;
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var utils = _interopRequireWildcard(__webpack_require__(1));
+
+var _validationTypes = _interopRequireDefault(__webpack_require__(0));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Validator =
+/*#__PURE__*/
+function () {
+  /**
+   * Validator constructor
+   *
+   * @param  {Object} form        DOM Element
+   * @param  {Object} settings    Validator settings
+   * @param  {Object} customTypes Validation types
+   *
+   * @return {Object}				Validator instance
+   */
+  function Validator() {
+    var form = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : document.querySelector('form');
+    var settings = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    var customTypes = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
+    _classCallCheck(this, Validator);
+
+    this.form = form;
+    this.settings = _objectSpread({
+      validClass: 'is--valid',
+      errorClass: 'is--invalid',
+      validatedClass: 'is--validated',
+      watch: true,
+      classHolder: null,
+      beforeValidate: null,
+      onSubmit: null,
+      afterValidate: null,
+      validationTypes: _objectSpread({}, _validationTypes.default, customTypes)
+    }, settings);
+    this.formElements = _toConsumableArray(this.form.elements);
+    this.hasJQuery = 'jQuery' in window;
+    this.submitHandler = this.submit.bind(this);
+    this.elementChangeHandler = this.elementChange.bind(this);
+    this.init();
+    return this;
+  }
+  /**
+   * Initialize it
+   *
+   * @return {Object}
+   */
+
+
+  _createClass(Validator, [{
+    key: "init",
+    value: function init() {
+      this.form.setAttribute('novalidate', true);
+      this.bind();
+      return this;
+    }
+    /**
+     * Get event name
+     *
+     * @param  {String} type Field type
+     *
+     * @return {String}
+     */
+
+  }, {
+    key: "getEventName",
+    value: function getEventName(type) {
+      switch (type) {
+        case 'color':
+        case 'date':
+        case 'datetime-local':
+        case 'email':
+        case 'month':
+        case 'number':
+        case 'password':
+        case 'search':
+        case 'tel':
+        case 'text':
+        case 'textarea':
+        case 'time':
+        case 'url':
+        case 'week':
+          return 'input';
+          break;
+
+        default:
+          return 'change';
+      }
+    }
+    /**
+     * Attach event listeners
+     *
+     * @return {Object}
+     */
+
+  }, {
+    key: "bind",
+    value: function bind() {
+      var _this = this;
+
+      this.form.addEventListener('submit', this.submitHandler, false);
+
+      if (!this.settings.watch) {
+        return this;
+      }
+
+      this.formElements.forEach(function (element) {
+        var elementType = element.type;
+
+        var eventName = _this.getEventName(elementType);
+
+        if (_this.hasJQuery) {
+          jQuery(element).on(eventName, _this.elementChangeHandler).on('validate', _this.elementChangeHandler);
+        } else {
+          element.addEventListener(eventName, _this.elementChangeHandler, false);
+        }
+      });
+      return this;
+    }
+    /**
+     * Detach event listeners
+     *
+     * @return {Object}
+     */
+
+  }, {
+    key: "unbind",
+    value: function unbind() {
+      var _this2 = this;
+
+      this.form.removeEventListener('submit', this.submitHandler, false);
+      this.formElements.forEach(function (element) {
+        var elementType = element.type;
+
+        var eventName = _this2.getEventName(elementType);
+
+        if (_this2.hasJQuery) {
+          jQuery(element).off(eventName, _this2.elementChangeHandler).off('validate', _this2.elementChangeHandler);
+        } else {
+          element.removeEventListener(eventName, _this2.elementChangeHandler, false);
+        }
+      });
+      return this;
+    }
+    /**
+     * Submit handler
+     *
+     * @param  {Object} event
+     *
+     * @return {Object}
+     */
+
+  }, {
+    key: "submit",
+    value: function submit(event) {
+      var elements = this.formElements;
+      var elementsLen = elements.length;
+      var isValid = true;
+
+      if ('beforeValidate' in this.settings && typeof this.settings.beforeValidate === 'function') {
+        this.settings.beforeValidate();
+      }
+
+      for (var i = 0; i < elementsLen; i++) {
+        if (elements[i].getAttribute('required') !== null) {
+          if (!this.validateElement(elements[i])) {
+            isValid = false;
+          }
+        }
+      }
+
+      utils.addClass(this.form, this.settings.validatedClass);
+
+      if (!isValid) {
+        event.preventDefault();
+        utils.removeClass(this.form, this.settings.validClass);
+      } else {
+        utils.addClass(this.form, this.settings.validClass);
+
+        if ('onSubmit' in this.settings && typeof this.settings.onSubmit === 'function') {
+          this.settings.onSubmit(event);
+        }
+      }
+
+      if ('afterValidate' in this.settings && typeof this.settings.afterValidate === 'function') {
+        this.settings.afterValidate();
+      }
+
+      return this;
+    }
+    /**
+     * Element change listener
+     *
+     * @param  {Object} event
+     *
+     * @return {Object}
+     */
+
+  }, {
+    key: "elementChange",
+    value: function elementChange(event) {
+      this.validateElement(event.target);
+      return this;
+    }
+    /**
+     * Get form element's validity
+     *
+     * @param  {Object} element DOM Element
+     *
+     * @return {Boolean}
+     */
+
+  }, {
+    key: "getElementValidity",
+    value: function getElementValidity(element) {
+      var name = element.nodeName.toUpperCase();
+      var type = element.type.toUpperCase();
+      var isValid = true;
+
+      switch (true) {
+        case name === 'TEXTAREA' || name === 'INPUT' && (type === 'TEXT' || type === 'EMAIL' || type === 'PASSWORD' || type === 'TEL' || type === 'NUMBER' || type === 'SEARCH'):
+          isValid = this.fieldValidation(element);
+          break;
+
+        case name === 'INPUT' && type === 'CHECKBOX':
+          isValid = this.checkboxValidation(element);
+          break;
+
+        case name === 'INPUT' && type === 'RADIO':
+          isValid = this.radioValidation(element);
+          break;
+
+        case name === 'SELECT':
+          isValid = this.selectValidation(element);
+          break;
+
+        default:
+          console.error("Can't validate this element!", element);
+      }
+
+      return isValid;
+    }
+    /**
+     * Validate a form element
+     *
+     * @param  {Objct} element DOM Element
+     *
+     * @return {Boolean}]
+     */
+
+  }, {
+    key: "validateElement",
+    value: function validateElement(element) {
+      var isValid = this.getElementValidity(element);
+
+      if (isValid) {
+        this.setElementValidClass(element);
+      } else {
+        this.setElementErrorClass(element);
+      }
+
+      if (this.hasJQuery) {
+        jQuery(element).data('validator', {
+          valid: isValid
+        });
+        jQuery(element).trigger('validate:change', isValid);
+      } else {
+        element.validator = {
+          valid: isValid
+        };
+      }
+
+      return isValid;
+    }
+    /**
+     * Validate a select field
+     *
+     * @param  {Object} element DOM Element
+     *
+     * @return {Boolean}
+     */
+
+  }, {
+    key: "selectValidation",
+    value: function selectValidation(element) {
+      return !!element.value;
+    }
+    /**
+     * Validate a radio buttons group
+     *
+     * @param  {Object} element DOM Element
+     *
+     * @return {Boolean}
+     */
+
+  }, {
+    key: "radioValidation",
+    value: function radioValidation(element) {
+      var name = element.name;
+      var siblings = (this.form || document).querySelectorAll('[name="' + name + '"]');
+      var isValid = false;
+
+      for (var i = 0; i < siblings.length; i++) {
+        if (siblings[i].getAttribute('required') !== null && siblings[i].checked) {
+          isValid = true;
+        }
+      }
+
+      return isValid;
+    }
+    /**
+     * Validate a checkbox
+     *
+     * @param  {Object} element DOM Element
+     *
+     * @return {Boolean}
+     */
+
+  }, {
+    key: "checkboxValidation",
+    value: function checkboxValidation(element) {
+      return element.checked;
+    }
+    /**
+     * Validate a text field
+     *
+     * @param  {Object} element DOM Element
+     *
+     * @return {Boolean}
+     */
+
+  }, {
+    key: "fieldValidation",
+    value: function fieldValidation(element) {
+      var isValid = true;
+      var validationType = element.getAttribute('data-validate');
+
+      if (!validationType) {
+        return isValid;
+      }
+
+      validationType = validationType.replace(/^\['|'\]$/g, '').split(/',\s?'/);
+
+      for (var i = 0; i < validationType.length; i++) {
+        var validator = validationType[i];
+
+        if (validator.match(/\(([^)]+)\)/)) {
+          validator = validator.replace(validator.match(/\(([^)]+)\)/)[0], '');
+        }
+
+        var validatorValid = this.validate(element.value, validator);
+
+        if (!validatorValid) {
+          isValid = false;
+        }
+
+        if (element.value === element.getAttribute('placeholder')) {
+          isValid = false;
+        }
+      }
+
+      return isValid;
+    }
+    /**
+     * Sets valid class to element
+     *
+     * @param  {Object} element DOM Element
+     *
+     * @return {Object}
+     */
+
+  }, {
+    key: "setElementValidClass",
+    value: function setElementValidClass(element) {
+      var parent = this.getClassHolder(element);
+      utils.addClass(parent, this.settings.validClass);
+      utils.removeClass(parent, this.settings.errorClass);
+      return this;
+    }
+    /**
+     * Sets error class to element
+     *
+     * @param  {Object} element DOM Element
+     *
+     * @return {Object}
+     */
+
+  }, {
+    key: "setElementErrorClass",
+    value: function setElementErrorClass(element) {
+      var parent = this.getClassHolder(element);
+      utils.addClass(parent, this.settings.errorClass);
+      utils.removeClass(parent, this.settings.validClass);
+      return this;
+    }
+    /**
+     * Get the element on which a classname should be applied
+     *
+     * @param  {Object} element DOM Element
+     *
+     * @return {Object}
+     */
+
+  }, {
+    key: "getClassHolder",
+    value: function getClassHolder(element) {
+      var parent = this.settings.classHolder;
+
+      if (!!parent) {
+        return utils.findParentBySelector(element, parent);
+      }
+
+      return element;
+    }
+    /**
+     * Actual validation
+     *
+     * @param  {String} value     Value
+     * @param  {String} validator Validation type
+     *
+     * @return {Boolean}
+     */
+
+  }, {
+    key: "validate",
+    value: function validate(value, validator) {
+      return value.match(this.settings.validationTypes[validator]);
+    }
+  }]);
+
+  return Validator;
+}();
+
+exports.default = Validator;
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _validator = _interopRequireDefault(__webpack_require__(2));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _default = _validator.default;
+exports.default = _default;
+
+/***/ })
+/******/ ])["default"];
+});

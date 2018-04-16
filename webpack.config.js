@@ -1,29 +1,21 @@
-const { resolve } = require('path');
+const UnminifiedWebpackPlugin = require('unminified-webpack-plugin');
 
 module.exports = {
 	mode: 'production',
 	entry: './src/index.js',
 	output: {
-		path: resolve(__dirname, 'dist'),
-		filename: 'bundle.js'
-	},
-	resolve: {
-		modules: ['./node_modules']
+		filename: 'bundle.min.js',
+		library: 'Validator',
+		libraryTarget: 'umd',
+		libraryExport: 'default'
 	},
 	module: {
 		rules: [
 			{
-				test: /\.js$/,
-				exclude: /node_modules/,
-				use: {
-					loader: 'babel-loader',
-					options: {
-						cacheDirectory: true,
-						comments: false,
-						presets: ['env', 'stage-2']
-					}
-				}
+				test: /\.(js)$/,
+				loader: 'babel-loader'
 			}
 		]
-	}
+	},
+	plugins: [new UnminifiedWebpackPlugin()]
 };
