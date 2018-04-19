@@ -1,4 +1,4 @@
-# vali - Dator
+# Dator
 
 Front End Forms Validator
 
@@ -17,3 +17,7 @@ Front End Forms Validator
 ## API
 
 // Todo
+
+## LICENSE
+
+MIT
