@@ -9,15 +9,17 @@
 [![license](https://img.shields.io/github/license/scriptex/dator.svg)](https://github.com/scriptex/dator)
 [![Analytics](https://ga-beacon.appspot.com/UA-83446952-1/github.com/scriptex/dator/README.md)](https://github.com/scriptex/dator/)
 [![Open Source Love svg1](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/scriptex/dator/)
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/scriptex/dator/webpack.config.js/graphs/commit-activity)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/scriptex/dator/graphs/commit-activity)
 
 [![ForTheBadge built-with-love](http://ForTheBadge.com/images/badges/built-with-love.svg)](https://github.com/scriptex/)
-[![ForTheBadge powered-by-electricity](http://ForTheBadge.com/images/badges/powered-by-electricity.svg)](http://ForTheBadge.com)
-[![ForTheBadge winter-is-coming](http://ForTheBadge.com/images/badges/winter-is-coming.svg)](http://ForTheBadge.com)
 
-# Dator
+# Dator. Vali-Dator
 
-Front End Forms Validator
+Intuitive front-end forms validator based on HTML5 attributes and a tiny bit of JavaScript.
+
+This repository is a work-in-progress: There is no documentation and no info about the package at all.
+
+All of these will be done and added in the near future.
 
 ## About
 
