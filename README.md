@@ -17,9 +17,11 @@
 
 Intuitive front-end forms validator based on HTML5 attributes and a tiny bit of JavaScript.
 
-This repository is a work-in-progress: There is no documentation and no info about the package at all.
+---
 
-All of these will be done and added in the near future.
+🛠 Status: In Development
+
+---
 
 ## About
 
