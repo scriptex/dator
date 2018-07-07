@@ -12,6 +12,8 @@
 [![Open Source Love svg1](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/scriptex/dator/)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/scriptex/dator/graphs/commit-activity)
 [![Greenkeeper badge](https://badges.greenkeeper.io/scriptex/dator.svg)](https://greenkeeper.io/)
+[![dependencies Status](https://david-dm.org/scriptex/dator/status.svg)](https://david-dm.org/scriptex/dator)
+[![devDependencies Status](https://david-dm.org/scriptex/dator/dev-status.svg)](https://david-dm.org/scriptex/dator?type=dev)
 
 [![ForTheBadge built-with-love](http://ForTheBadge.com/images/badges/built-with-love.svg)](https://github.com/scriptex/)
 
