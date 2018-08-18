@@ -91,7 +91,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -105,28 +105,12 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var _default = {
-  // First Name, Last Name, City
-  name: /^[a-zA-Z \-']{3,}$/,
-  // Zip Code
-  zip: /^\d{5}$/,
-  // Select fields, Company Name, Subject, Message, etc
-  presence: /.+/,
-  // Email address
-  email: /^[0-9a-zA-Z]+([0-9a-zA-Z]*[-._+])*[0-9a-zA-Z]+@[0-9a-zA-Z]+([-.][0-9a-zA-Z]+)*([0-9a-zA-Z]*[.])[a-zA-Z]{2,6}$/,
-  // Phone Number - XXX-XXX-XXXX, XXXXXXXXXX, XXX.XXX.XXXX or XXX XXX XXXX formats
-  phone: /^\d{3}[- .]?\d{3}[- .]?\d{4}$/,
-  // Address
-  address: /[a-zA-Z0-9 \-]{5,}/,
-  // Integer Number
-  integer: /^[+-]?\d+$/,
-  // Float Number
-  float: /^[+-]?(\d+(.\d+)?)/,
-  // Credit Card Number
-  'credit-card': /^\d{4} \d{4} \d{4} \d{4}$/,
-  // Credit Card CVC code
-  cvc: /^\d{3,5}$/
-};
+
+var _validator = _interopRequireDefault(__webpack_require__(1));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _default = _validator.default;
 exports.default = _default;
 
 /***/ }),
@@ -139,116 +123,11 @@ exports.default = _default;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.removeClass = exports.addClass = exports.hasClass = exports.findParentBySelector = exports.isInArray = void 0;
-
-/**
- * Check if an element is part of an array
- *
- * @param  {Array}  array   Array to search in
- * @param  {Object} element Element
- *
- * @return {Boolean}
- */
-var isInArray = function isInArray(array, element) {
-  for (var i = 0, len = array.length; i < len; i++) {
-    if (array[i] == element) return true;
-  }
-
-  return false;
-};
-/**
- * Find parent element by selector
- *
- * @param  {Object} elm      DOM Element
- * @param  {String} selector Selectro
- *
- * @return {Object}          DOM Element
- */
-
-
-exports.isInArray = isInArray;
-
-var findParentBySelector = function findParentBySelector(elm, selector) {
-  var all = document.querySelectorAll(selector);
-  var cur = elm;
-
-  while (cur && !isInArray(all, cur)) {
-    cur = cur.parentNode;
-  }
-
-  return cur;
-};
-/**
- * Check if element has class
- *
- * @param  {Object} elm DOM Element
- * @param  {String} cls Classname
- *
- * @return {Boolean}
- */
-
-
-exports.findParentBySelector = findParentBySelector;
-
-var hasClass = function hasClass(elm, cls) {
-  return elm.classList.contains(cls);
-};
-/**
- * Add class to an element
- *
- * @param  {Object} elm DOM Element
- * @param  {String} cls Classname
- *
- * @return {Void}
- */
-
-
-exports.hasClass = hasClass;
-
-var addClass = function addClass(elm, cls) {
-  if (hasClass(elm, cls)) {
-    return;
-  }
-
-  elm.classList.add(cls);
-};
-/**
- * Remove class from an element
- *
- * @param  {Object} elm DOM Element
- * @param  {String} cls Classname
- *
- * @return {Void}
- */
-
-
-exports.addClass = addClass;
-
-var removeClass = function removeClass(elm, cls) {
-  if (!hasClass(elm, cls)) {
-    return;
-  }
-
-  elm.classList.remove(cls);
-};
-
-exports.removeClass = removeClass;
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 exports.default = void 0;
 
-var utils = _interopRequireWildcard(__webpack_require__(1));
+var utils = _interopRequireWildcard(__webpack_require__(2));
 
-var _validationTypes = _interopRequireDefault(__webpack_require__(0));
+var _validationTypes = _interopRequireDefault(__webpack_require__(3));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -704,6 +583,111 @@ function () {
 exports.default = Validator;
 
 /***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.removeClass = exports.addClass = exports.hasClass = exports.findParentBySelector = exports.isInArray = void 0;
+
+/**
+ * Check if an element is part of an array
+ *
+ * @param  {Array}  array   Array to search in
+ * @param  {Object} element Element
+ *
+ * @return {Boolean}
+ */
+var isInArray = function isInArray(array, element) {
+  for (var i = 0, len = array.length; i < len; i++) {
+    if (array[i] == element) return true;
+  }
+
+  return false;
+};
+/**
+ * Find parent element by selector
+ *
+ * @param  {Object} elm      DOM Element
+ * @param  {String} selector Selectro
+ *
+ * @return {Object}          DOM Element
+ */
+
+
+exports.isInArray = isInArray;
+
+var findParentBySelector = function findParentBySelector(elm, selector) {
+  var all = document.querySelectorAll(selector);
+  var cur = elm;
+
+  while (cur && !isInArray(all, cur)) {
+    cur = cur.parentNode;
+  }
+
+  return cur;
+};
+/**
+ * Check if element has class
+ *
+ * @param  {Object} elm DOM Element
+ * @param  {String} cls Classname
+ *
+ * @return {Boolean}
+ */
+
+
+exports.findParentBySelector = findParentBySelector;
+
+var hasClass = function hasClass(elm, cls) {
+  return elm.classList.contains(cls);
+};
+/**
+ * Add class to an element
+ *
+ * @param  {Object} elm DOM Element
+ * @param  {String} cls Classname
+ *
+ * @return {Void}
+ */
+
+
+exports.hasClass = hasClass;
+
+var addClass = function addClass(elm, cls) {
+  if (hasClass(elm, cls)) {
+    return;
+  }
+
+  elm.classList.add(cls);
+};
+/**
+ * Remove class from an element
+ *
+ * @param  {Object} elm DOM Element
+ * @param  {String} cls Classname
+ *
+ * @return {Void}
+ */
+
+
+exports.addClass = addClass;
+
+var removeClass = function removeClass(elm, cls) {
+  if (!hasClass(elm, cls)) {
+    return;
+  }
+
+  elm.classList.remove(cls);
+};
+
+exports.removeClass = removeClass;
+
+/***/ }),
 /* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -714,12 +698,28 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-
-var _validator = _interopRequireDefault(__webpack_require__(2));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var _default = _validator.default;
+var _default = {
+  // First Name, Last Name, City
+  name: /^[a-zA-Z \-']{3,}$/,
+  // Zip Code
+  zip: /^\d{5}$/,
+  // Select fields, Company Name, Subject, Message, etc
+  presence: /.+/,
+  // Email address
+  email: /^[0-9a-zA-Z]+([0-9a-zA-Z]*[-._+])*[0-9a-zA-Z]+@[0-9a-zA-Z]+([-.][0-9a-zA-Z]+)*([0-9a-zA-Z]*[.])[a-zA-Z]{2,6}$/,
+  // Phone Number - XXX-XXX-XXXX, XXXXXXXXXX, XXX.XXX.XXXX or XXX XXX XXXX formats
+  phone: /^\d{3}[- .]?\d{3}[- .]?\d{4}$/,
+  // Address
+  address: /[a-zA-Z0-9 \-]{5,}/,
+  // Integer Number
+  integer: /^[+-]?\d+$/,
+  // Float Number
+  float: /^[+-]?(\d+(.\d+)?)/,
+  // Credit Card Number
+  'credit-card': /^\d{4} \d{4} \d{4} \d{4}$/,
+  // Credit Card CVC code
+  cvc: /^\d{3,5}$/
+};
 exports.default = _default;
 
 /***/ })
