@@ -1,7 +1,7 @@
 [![GitHub release](https://img.shields.io/github/release/scriptex/dator.svg)](https://github.com/scriptex/dator/releases/latest)
 [![GitHub issues](https://img.shields.io/github/issues/scriptex/dator.svg)](https://github.com/scriptex/dator/issues)
 [![GitHub last commit](https://img.shields.io/github/last-commit/scriptex/dator.svg)](https://github.com/scriptex/dator/commits/master)
-[![Github file size](https://img.shields.io/github/size/scriptex/dator/dist/bundle.min.js.svg)](https://github.com/scriptex/dator)
+[![Github file size](https://img.shields.io/github/size/scriptex/dator/dist/dator.min.js.svg)](https://github.com/scriptex/dator)
 [![Build Status](https://travis-ci.org/scriptex/dator.svg?branch=master)](https://travis-ci.org/scriptex/dator)
 [![npm](https://img.shields.io/npm/dt/dator.svg)](https://www.npmjs.com/package/dator)
 [![npm](https://img.shields.io/npm/v/dator.svg)](https://www.npmjs.com/package/dator)
