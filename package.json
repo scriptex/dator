@@ -38,9 +38,9 @@
     "@babel/plugin-syntax-dynamic-import": "7.0.0",
     "@babel/plugin-syntax-import-meta": "7.0.0",
     "@babel/preset-env": "7.1.0",
-    "babel-loader": "8.0.2",
+    "babel-loader": "8.0.4",
     "unminified-webpack-plugin": "2.0.0",
-    "webpack": "4.16.5",
-    "webpack-cli": "3.1.2"
+    "webpack-cli": "3.1.2",
+    "webpack": "4.20.2" 
   }
 }
