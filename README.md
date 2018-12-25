@@ -6,7 +6,6 @@
 [![npm](https://img.shields.io/npm/dt/dator.svg)](https://www.npmjs.com/package/dator)
 [![npm](https://img.shields.io/npm/v/dator.svg)](https://www.npmjs.com/package/dator)
 [![Analytics](https://ga-beacon.appspot.com/UA-83446952-1/github.com/scriptex/dator/README.md)](https://github.com/scriptex/dator/)
-[![Greenkeeper badge](https://badges.greenkeeper.io/scriptex/dator.svg)](https://greenkeeper.io/)
 
 # Dator. Vali-Dator
 
