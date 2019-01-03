@@ -1,46 +1,46 @@
 {
-  "name": "dator",
-  "version": "0.4.0",
-  "description": "Front-end forms validator",
-  "main": "dist/dator.js",
-  "scripts": {
-    "build": "webpack",
-    "start": "webpack --watch"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/scriptex/dator.git"
-  },
-  "keywords": [
-    "Form",
-    "Validator",
-    "Front-end",
-    "Validation",
-    "Live",
-    "Validation"
-  ],
-  "author": "Atanas Atanasov <scriptex.bg@gmail.com> (https://atanas.info)",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/scriptex/dator/issues"
-  },
-  "homepage": "https://github.com/scriptex/dator#readme",
-  "devDependencies": {
-    "@babel/cli": "7.2.3",
-    "@babel/core": "7.2.2",
-    "@babel/plugin-proposal-class-properties": "7.2.3",
-    "@babel/plugin-proposal-decorators": "7.2.3",
-    "@babel/plugin-proposal-export-namespace-from": "7.2.0",
-    "@babel/plugin-proposal-function-sent": "7.2.0",
-    "@babel/plugin-proposal-json-strings": "7.2.0",
-    "@babel/plugin-proposal-numeric-separator": "7.2.0",
-    "@babel/plugin-proposal-throw-expressions": "7.2.0",
-    "@babel/plugin-syntax-dynamic-import": "7.2.0",
-    "@babel/plugin-syntax-import-meta": "7.2.0",
-    "@babel/preset-env": "7.2.3",
-    "babel-loader": "8.0.4",
-    "unminified-webpack-plugin": "2.0.0",
-    "webpack-cli": "3.2.0",
-    "webpack": "4.28.3" 
-  }
+	"name": "dator",
+	"version": "1.0.0",
+	"description": "Front-end forms validator",
+	"main": "dist/dator.js",
+	"scripts": {
+		"build": "webpack",
+		"start": "webpack --watch"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/scriptex/dator.git"
+	},
+	"keywords": [
+		"Form",
+		"Validator",
+		"Front-end",
+		"Validation",
+		"Live",
+		"Validation"
+	],
+	"author": "Atanas Atanasov <scriptex.bg@gmail.com> (https://atanas.info)",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/scriptex/dator/issues"
+	},
+	"homepage": "https://github.com/scriptex/dator#readme",
+	"devDependencies": {
+		"@babel/cli": "7.2.3",
+		"@babel/core": "7.2.2",
+		"@babel/plugin-proposal-class-properties": "7.2.3",
+		"@babel/plugin-proposal-decorators": "7.2.3",
+		"@babel/plugin-proposal-export-namespace-from": "7.2.0",
+		"@babel/plugin-proposal-function-sent": "7.2.0",
+		"@babel/plugin-proposal-json-strings": "7.2.0",
+		"@babel/plugin-proposal-numeric-separator": "7.2.0",
+		"@babel/plugin-proposal-throw-expressions": "7.2.0",
+		"@babel/plugin-syntax-dynamic-import": "7.2.0",
+		"@babel/plugin-syntax-import-meta": "7.2.0",
+		"@babel/preset-env": "7.2.3",
+		"babel-loader": "8.0.4",
+		"unminified-webpack-plugin": "2.0.0",
+		"webpack-cli": "3.2.0",
+		"webpack": "4.28.3"
+	}
 }
