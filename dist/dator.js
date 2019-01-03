@@ -96,43 +96,114 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+__webpack_require__.r(__webpack_exports__);
 
+// CONCATENATED MODULE: ./src/utils.js
+/**
+ * Check if an element is part of an array
+ *
+ * @param  {Array}  array   Array to search in
+ * @param  {Object} element Element
+ *
+ * @return {Boolean}
+ */
+var isInArray = function isInArray(array, element) {
+  for (var i = 0, len = array.length; i < len; i++) {
+    if (array[i] == element) return true;
+  }
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
+  return false;
+};
+/**
+ * Find parent element by selector
+ *
+ * @param  {Object} elm      DOM Element
+ * @param  {String} selector Selectro
+ *
+ * @return {Object}          DOM Element
+ */
+
+var findParentBySelector = function findParentBySelector(elm, selector) {
+  var all = document.querySelectorAll(selector);
+  var cur = elm;
+
+  while (cur && !isInArray(all, cur)) {
+    cur = cur.parentNode;
+  }
+
+  return cur;
+};
+/**
+ * Check if element has class
+ *
+ * @param  {Object} elm DOM Element
+ * @param  {String} cls Classname
+ *
+ * @return {Boolean}
+ */
+
+var hasClass = function hasClass(elm, cls) {
+  return elm.classList.contains(cls);
+};
+/**
+ * Add class to an element
+ *
+ * @param  {Object} elm DOM Element
+ * @param  {String} cls Classname
+ *
+ * @return {Void}
+ */
+
+var addClass = function addClass(elm, cls) {
+  if (hasClass(elm, cls)) {
+    return;
+  }
+
+  elm.classList.add(cls);
+};
+/**
+ * Remove class from an element
+ *
+ * @param  {Object} elm DOM Element
+ * @param  {String} cls Classname
+ *
+ * @return {Void}
+ */
+
+var removeClass = function removeClass(elm, cls) {
+  if (!hasClass(elm, cls)) {
+    return;
+  }
+
+  elm.classList.remove(cls);
+};
+// CONCATENATED MODULE: ./src/validation-types.js
+/* harmony default export */ var validation_types = ({
+  // First Name, Last Name, City
+  name: /^[a-zA-Z \-']{3,}$/,
+  // Zip Code
+  zip: /^\d{5}$/,
+  // Select fields, Company Name, Subject, Message, etc
+  presence: /.+/,
+  // Email address
+  email: /^[0-9a-zA-Z]+([0-9a-zA-Z]*[-._+])*[0-9a-zA-Z]+@[0-9a-zA-Z]+([-.][0-9a-zA-Z]+)*([0-9a-zA-Z]*[.])[a-zA-Z]{2,6}$/,
+  // Phone Number - XXX-XXX-XXXX, XXXXXXXXXX, XXX.XXX.XXXX or XXX XXX XXXX formats
+  phone: /^\d{3}[- .]?\d{3}[- .]?\d{4}$/,
+  // Address
+  address: /[a-zA-Z0-9 \-]{5,}/,
+  // Integer Number
+  integer: /^[+-]?\d+$/,
+  // Float Number
+  float: /^[+-]?(\d+(.\d+)?)/,
+  // Credit Card Number
+  'credit-card': /^\d{4} \d{4} \d{4} \d{4}$/,
+  // Credit Card CVC code
+  cvc: /^\d{3,5}$/
 });
-exports.default = void 0;
-
-var _validator = _interopRequireDefault(__webpack_require__(1));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var _default = _validator.default;
-exports.default = _default;
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var utils = _interopRequireWildcard(__webpack_require__(2));
-
-var _validationTypes = _interopRequireDefault(__webpack_require__(3));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
-
+// CONCATENATED MODULE: ./src/validator.js
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
@@ -151,7 +222,13 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var Validator =
+/**
+ * Internal dependencies
+ */
+
+
+
+var validator_Validator =
 /*#__PURE__*/
 function () {
   /**
@@ -180,7 +257,7 @@ function () {
       beforeValidate: null,
       onSubmit: null,
       afterValidate: null,
-      validationTypes: _objectSpread({}, _validationTypes.default, customTypes)
+      validationTypes: _objectSpread({}, validation_types, customTypes)
     }, settings);
     this.formElements = _toConsumableArray(this.form.elements);
     this.hasJQuery = 'jQuery' in window;
@@ -318,13 +395,13 @@ function () {
         }
       }
 
-      utils.addClass(this.form, this.settings.validatedClass);
+      addClass(this.form, this.settings.validatedClass);
 
       if (!isValid) {
         event.preventDefault();
-        utils.removeClass(this.form, this.settings.validClass);
+        removeClass(this.form, this.settings.validClass);
       } else {
-        utils.addClass(this.form, this.settings.validClass);
+        addClass(this.form, this.settings.validClass);
 
         if ('onSubmit' in this.settings && typeof this.settings.onSubmit === 'function') {
           this.settings.onSubmit(event);
@@ -522,8 +599,8 @@ function () {
     key: "setElementValidClass",
     value: function setElementValidClass(element) {
       var parent = this.getClassHolder(element);
-      utils.addClass(parent, this.settings.validClass);
-      utils.removeClass(parent, this.settings.errorClass);
+      addClass(parent, this.settings.validClass);
+      removeClass(parent, this.settings.errorClass);
       return this;
     }
     /**
@@ -538,8 +615,8 @@ function () {
     key: "setElementErrorClass",
     value: function setElementErrorClass(element) {
       var parent = this.getClassHolder(element);
-      utils.addClass(parent, this.settings.errorClass);
-      utils.removeClass(parent, this.settings.validClass);
+      addClass(parent, this.settings.errorClass);
+      removeClass(parent, this.settings.validClass);
       return this;
     }
     /**
@@ -556,7 +633,7 @@ function () {
       var parent = this.settings.classHolder;
 
       if (!!parent) {
-        return utils.findParentBySelector(element, parent);
+        return findParentBySelector(element, parent);
       }
 
       return element;
@@ -580,147 +657,10 @@ function () {
   return Validator;
 }();
 
-exports.default = Validator;
 
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
+// CONCATENATED MODULE: ./src/index.js
 
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.removeClass = exports.addClass = exports.hasClass = exports.findParentBySelector = exports.isInArray = void 0;
-
-/**
- * Check if an element is part of an array
- *
- * @param  {Array}  array   Array to search in
- * @param  {Object} element Element
- *
- * @return {Boolean}
- */
-var isInArray = function isInArray(array, element) {
-  for (var i = 0, len = array.length; i < len; i++) {
-    if (array[i] == element) return true;
-  }
-
-  return false;
-};
-/**
- * Find parent element by selector
- *
- * @param  {Object} elm      DOM Element
- * @param  {String} selector Selectro
- *
- * @return {Object}          DOM Element
- */
-
-
-exports.isInArray = isInArray;
-
-var findParentBySelector = function findParentBySelector(elm, selector) {
-  var all = document.querySelectorAll(selector);
-  var cur = elm;
-
-  while (cur && !isInArray(all, cur)) {
-    cur = cur.parentNode;
-  }
-
-  return cur;
-};
-/**
- * Check if element has class
- *
- * @param  {Object} elm DOM Element
- * @param  {String} cls Classname
- *
- * @return {Boolean}
- */
-
-
-exports.findParentBySelector = findParentBySelector;
-
-var hasClass = function hasClass(elm, cls) {
-  return elm.classList.contains(cls);
-};
-/**
- * Add class to an element
- *
- * @param  {Object} elm DOM Element
- * @param  {String} cls Classname
- *
- * @return {Void}
- */
-
-
-exports.hasClass = hasClass;
-
-var addClass = function addClass(elm, cls) {
-  if (hasClass(elm, cls)) {
-    return;
-  }
-
-  elm.classList.add(cls);
-};
-/**
- * Remove class from an element
- *
- * @param  {Object} elm DOM Element
- * @param  {String} cls Classname
- *
- * @return {Void}
- */
-
-
-exports.addClass = addClass;
-
-var removeClass = function removeClass(elm, cls) {
-  if (!hasClass(elm, cls)) {
-    return;
-  }
-
-  elm.classList.remove(cls);
-};
-
-exports.removeClass = removeClass;
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  // First Name, Last Name, City
-  name: /^[a-zA-Z \-']{3,}$/,
-  // Zip Code
-  zip: /^\d{5}$/,
-  // Select fields, Company Name, Subject, Message, etc
-  presence: /.+/,
-  // Email address
-  email: /^[0-9a-zA-Z]+([0-9a-zA-Z]*[-._+])*[0-9a-zA-Z]+@[0-9a-zA-Z]+([-.][0-9a-zA-Z]+)*([0-9a-zA-Z]*[.])[a-zA-Z]{2,6}$/,
-  // Phone Number - XXX-XXX-XXXX, XXXXXXXXXX, XXX.XXX.XXXX or XXX XXX XXXX formats
-  phone: /^\d{3}[- .]?\d{3}[- .]?\d{4}$/,
-  // Address
-  address: /[a-zA-Z0-9 \-]{5,}/,
-  // Integer Number
-  integer: /^[+-]?\d+$/,
-  // Float Number
-  float: /^[+-]?(\d+(.\d+)?)/,
-  // Credit Card Number
-  'credit-card': /^\d{4} \d{4} \d{4} \d{4}$/,
-  // Credit Card CVC code
-  cvc: /^\d{3,5}$/
-};
-exports.default = _default;
+/* harmony default export */ var src = __webpack_exports__["default"] = (validator_Validator);
 
 /***/ })
 /******/ ])["default"];
