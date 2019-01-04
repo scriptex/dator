@@ -32,6 +32,12 @@ yarn add dator
 
 or just [download](https://github.com/scriptex/dator/archive/master.zip) this repository and extract it where you wish.
 
+or include it from unpkg.com
+
+```html
+<script src="https://unpkg.com/dator"></script>
+```
+
 ## Usage
 
 In your JavaScript file:
