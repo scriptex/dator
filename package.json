@@ -40,7 +40,7 @@
 		"@babel/preset-env": "7.7.6",
 		"babel-loader": "8.0.6",
 		"unminified-webpack-plugin": "2.0.0",
-		"webpack": "4.41.3",
+		"webpack": "4.41.4",
 		"webpack-cli": "3.3.10"
 	}
 }
