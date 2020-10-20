@@ -1,68 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-	<title>Dator Demo</title>
+		<title>Dator Demo</title>
 
-	<style type="text/css">
-		body {
-			font-family: monospace;
-			margin: 0;
-		}
+		<style type="text/css">
+			body {
+				font-family: monospace;
+				margin: 0;
+			}
 
-		form {
-			width: 18.75rem;
-			padding: 1rem 0;
-			margin: auto;
-		}
+			form {
+				width: 18.75rem;
+				padding: 1rem 0;
+				margin: auto;
+			}
 
-		input {
-			font-size: 0.75rem;
-			line-height: 1.5;
-			width: 100%;
-			height: 2.5rem;
-			display: block;
-			padding: 0.5rem;
-			border: 1px solid;
-			margin-bottom: 0.5rem;
-			background: #fff;
-			border-radius: 0;
-			box-shadow: none;
-			box-sizing: border-box;
-			-webkit-appearance: none;
-			-moz-appearance: none;
-			appearance: none;
-		}
+			input {
+				font-size: 0.75rem;
+				line-height: 1.5;
+				width: 100%;
+				height: 2.5rem;
+				display: block;
+				padding: 0.5rem;
+				border: 1px solid;
+				margin-bottom: 0.5rem;
+				background: #fff;
+				border-radius: 0;
+				box-shadow: none;
+				box-sizing: border-box;
+				-webkit-appearance: none;
+				-moz-appearance: none;
+				appearance: none;
+			}
 
-		input[type="submit"] {
-			-webkit-appearance: none;
-			-moz-appearance: none;
-			appearance: none;
-		}
-	</style>
-</head>
-<body>
-	<form>
-		<input type="text" name="full-name" value="" placeholder="Enter name" required data-validate="name">
-		<input type="number" name="zipcode" value="" placeholder="Enter ZIP" required data-validate="zip">
-		<input type="text" name="text-field" value="" placeholder="Do not leave empty" required data-validate="presence">
-		<input type="email" name="email" value="" placeholder="Your email address" required data-validate="email">
-		<input type="tel" name="phone" value="" placeholder="Enter phone number" required data-validate="phone">
-		<input type="text" name="address" value="" placeholder="Your address, please" required data-validate="address">
-		<input type="number" name="whole-num" value="" placeholder="Enter an integer" required data-validate="integer">
-		<input type="number" name="floating-num" value="" placeholder="Enter a floating number" required data-validate="float">
-		<input type="number" name="cc" value="" placeholder="Enter your credit card number 😈" required data-validate="credit-card">
-		<input type="number" name="cvc" value="" placeholder="Enter your card security code" required data-validate="cvc">
+			input[type='submit'] {
+				-webkit-appearance: none;
+				-moz-appearance: none;
+				appearance: none;
+			}
 
-		<input type="submit" value="Submit">
-	</form>
+			.is--invalid {
+				border-color: red;
+				background-color: lightpink;
+			}
+		</style>
+	</head>
+	<body>
+		<form>
+			<input type="text" name="full-name" value="" placeholder="Enter name" required data-validate="name" />
+			<input type="number" name="zipcode" value="" placeholder="Enter ZIP" required data-validate="zip" />
+			<input
+				type="text"
+				name="text-field"
+				value=""
+				placeholder="Do not leave empty"
+				required
+				data-validate="presence"
+			/>
+			<input type="email" name="email" value="" placeholder="Your email address" required data-validate="email" />
+			<input type="tel" name="phone" value="" placeholder="Enter phone number" required data-validate="phone" />
+			<input
+				type="text"
+				name="address"
+				value=""
+				placeholder="Your address, please"
+				required
+				data-validate="address"
+			/>
+			<input
+				type="number"
+				name="whole-num"
+				value=""
+				placeholder="Enter an integer"
+				required
+				data-validate="integer"
+			/>
+			<input
+				type="number"
+				name="floating-num"
+				value=""
+				placeholder="Enter a floating number"
+				required
+				data-validate="float"
+			/>
+			<input
+				type="number"
+				name="cc"
+				value=""
+				placeholder="Enter your credit card number 😈"
+				required
+				data-validate="credit-card"
+			/>
+			<input
+				type="number"
+				name="cvc"
+				value=""
+				placeholder="Enter your card security code"
+				required
+				data-validate="cvc"
+			/>
 
-	<script type="module">
-		import Validator from '../src/index.js';
+			<input type="submit" value="Submit" />
+		</form>
 
-		new Validator();
-	</script>
-</body>
+		<script src="../dist/dator.min.js"></script>
+
+		<script>
+			new Validator();
+		</script>
+	</body>
 </html>
