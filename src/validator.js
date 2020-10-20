@@ -12,13 +12,9 @@ export default class Validator {
 	 * @param  {Object} settings    Validator settings
 	 * @param  {Object} customTypes Validation types
 	 *
-	 * @return {Object}				Validator instance
+	 * @return 						Validator instance
 	 */
-	constructor(
-		form = document.querySelector('form'),
-		settings = {},
-		customTypes = {}
-	) {
+	constructor(form = document.querySelector('form'), settings = {}, customTypes = {}) {
 		this.form = form;
 		this.settings = {
 			validClass: 'is--valid',
@@ -83,6 +79,7 @@ export default class Validator {
 			case 'url':
 			case 'week':
 				return 'input';
+				// @ts-ignore
 				break;
 			default:
 				return 'change';
@@ -106,15 +103,10 @@ export default class Validator {
 			const eventName = this.getEventName(elementType);
 
 			if (this.hasJQuery) {
-				jQuery(element)
-					.on(eventName, this.elementChangeHandler)
-					.on('validate', this.elementChangeHandler);
+				// @ts-ignore
+				jQuery(element).on(eventName, this.elementChangeHandler).on('validate', this.elementChangeHandler);
 			} else {
-				element.addEventListener(
-					eventName,
-					this.elementChangeHandler,
-					false
-				);
+				element.addEventListener(eventName, this.elementChangeHandler, false);
 			}
 		});
 
@@ -134,15 +126,10 @@ export default class Validator {
 			const eventName = this.getEventName(elementType);
 
 			if (this.hasJQuery) {
-				jQuery(element)
-					.off(eventName, this.elementChangeHandler)
-					.off('validate', this.elementChangeHandler);
+				// @ts-ignore
+				jQuery(element).off(eventName, this.elementChangeHandler).off('validate', this.elementChangeHandler);
 			} else {
-				element.removeEventListener(
-					eventName,
-					this.elementChangeHandler,
-					false
-				);
+				element.removeEventListener(eventName, this.elementChangeHandler, false);
 			}
 		});
 
@@ -162,10 +149,7 @@ export default class Validator {
 
 		let isValid = true;
 
-		if (
-			'beforeValidate' in this.settings &&
-			typeof this.settings.beforeValidate === 'function'
-		) {
+		if ('beforeValidate' in this.settings && typeof this.settings.beforeValidate === 'function') {
 			this.settings.beforeValidate();
 		}
 
@@ -186,18 +170,12 @@ export default class Validator {
 		} else {
 			utils.addClass(this.form, this.settings.validClass);
 
-			if (
-				'onSubmit' in this.settings &&
-				typeof this.settings.onSubmit === 'function'
-			) {
+			if ('onSubmit' in this.settings && typeof this.settings.onSubmit === 'function') {
 				this.settings.onSubmit(event);
 			}
 		}
 
-		if (
-			'afterValidate' in this.settings &&
-			typeof this.settings.afterValidate === 'function'
-		) {
+		if ('afterValidate' in this.settings && typeof this.settings.afterValidate === 'function') {
 			this.settings.afterValidate();
 		}
 
@@ -264,7 +242,7 @@ export default class Validator {
 	/**
 	 * Validate a form element
 	 *
-	 * @param  {Objct} element DOM Element
+	 * @param  {Object} element DOM Element
 	 *
 	 * @return {Boolean}]
 	 */
@@ -278,7 +256,9 @@ export default class Validator {
 		}
 
 		if (this.hasJQuery) {
+			// @ts-ignore
 			jQuery(element).data('validator', { valid: isValid });
+			// @ts-ignore
 			jQuery(element).trigger('validate:change', isValid);
 		} else {
 			element.validator = { valid: isValid };
@@ -307,17 +287,12 @@ export default class Validator {
 	 */
 	radioValidation(element) {
 		const { name } = element;
-		const siblings = (this.form || document).querySelectorAll(
-			'[name="' + name + '"]'
-		);
+		const siblings = (this.form || document).querySelectorAll('[name="' + name + '"]');
 
 		let isValid = false;
 
 		for (let i = 0; i < siblings.length; i++) {
-			if (
-				siblings[i].getAttribute('required') !== null &&
-				siblings[i].checked
-			) {
+			if (siblings[i].getAttribute('required') !== null && siblings[i].checked) {
 				isValid = true;
 			}
 		}
@@ -351,18 +326,13 @@ export default class Validator {
 			return isValid;
 		}
 
-		validationType = validationType
-			.replace(/^\['|'\]$/g, '')
-			.split(/',\s?'/);
+		validationType = validationType.replace(/^\['|'\]$/g, '').split(/',\s?'/);
 
 		for (let i = 0; i < validationType.length; i++) {
 			let validator = validationType[i];
 
 			if (validator.match(/\(([^)]+)\)/)) {
-				validator = validator.replace(
-					validator.match(/\(([^)]+)\)/)[0],
-					''
-				);
+				validator = validator.replace(validator.match(/\(([^)]+)\)/)[0], '');
 			}
 
 			const validatorValid = this.validate(element.value, validator);
@@ -437,6 +407,7 @@ export default class Validator {
 	 * @return {Boolean}
 	 */
 	validate(value, validator) {
+		// @ts-ignore
 		return value.match(this.settings.validationTypes[validator]);
 	}
 }

@@ -27,6 +27,7 @@ export const findParentBySelector = (elm, selector) => {
 
 	let cur = elm;
 
+	// @ts-ignore
 	while (cur && !isInArray(all, cur)) {
 		cur = cur.parentNode;
 	}
