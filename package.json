@@ -30,7 +30,7 @@
 		"@babel/core": "7.12.3",
 		"@babel/preset-env": "7.12.1",
 		"babel-loader": "8.2.1",
-		"webpack": "5.5.0",
+		"webpack": "5.5.1",
 		"webpack-cli": "4.2.0"
 	}
 }
