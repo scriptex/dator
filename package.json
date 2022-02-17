@@ -27,7 +27,7 @@
 	"homepage": "https://github.com/scriptex/dator#readme",
 	"devDependencies": {
 		"@babel/cli": "7.17.3",
-		"@babel/core": "7.17.4",
+		"@babel/core": "7.17.5",
 		"@babel/preset-env": "7.16.11",
 		"babel-loader": "8.2.3",
 		"webpack": "5.69.0",
