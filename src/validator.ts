@@ -47,7 +47,7 @@ export class Validator {
 		return this;
 	}
 
-	private init() {
+	private init(): Validator {
 		this.form?.setAttribute('novalidate', 'novalidate');
 
 		this.bind();
@@ -55,7 +55,7 @@ export class Validator {
 		return this;
 	}
 
-	private getEventName(type: string) {
+	private getEventName(type: string): string {
 		switch (type) {
 			case 'color':
 			case 'date':
@@ -77,7 +77,7 @@ export class Validator {
 		}
 	}
 
-	private bind() {
+	private bind(): Validator {
 		this.form?.addEventListener('submit', this.submit, false);
 
 		if (!this.settings.watch) {
