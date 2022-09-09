@@ -1,6 +1,6 @@
 export const isInArray = <T>(array: Array<T>, element: T): boolean => {
-	for (let i = 0, len = array.length; i < len; i++) {
-		if (array[i] == element) return true;
+	for (const item of array) {
+		if (item == element) return true;
 	}
 
 	return false;

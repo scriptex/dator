@@ -231,8 +231,8 @@ export class Validator {
 
 		let isValid = false;
 
-		for (let i = 0; i < siblings.length; i++) {
-			if (siblings[i].getAttribute('required') !== null && siblings[i].checked) {
+		for (const sibling of siblings) {
+			if (sibling.getAttribute('required') !== null && sibling.checked) {
 				isValid = true;
 			}
 		}
@@ -254,9 +254,7 @@ export class Validator {
 
 		validationType = validationType.replace(/^\['|'\]$/g, '').split(/',\s?'/);
 
-		for (let i = 0; i < validationType.length; i++) {
-			let validator = validationType[i];
-
+		for (let validator of validationType) {
 			if (validator.match(/\(([^)]+)\)/)) {
 				validator = validator.replace(validator.match(/\(([^)]+)\)/)?.[0] || '', '');
 			}
