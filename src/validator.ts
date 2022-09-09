@@ -206,9 +206,9 @@ export class Validator {
 		const isValid = this.getElementValidity(element);
 
 		if (isValid) {
-			this.setElementValidClass(element);
+			this.setElementClass(element, 'valid');
 		} else {
-			this.setElementErrorClass(element);
+			this.setElementClass(element, 'error');
 		}
 
 		if (this.hasJQuery) {
@@ -273,20 +273,13 @@ export class Validator {
 		return isValid;
 	}
 
-	private setElementValidClass(element: HTMLFormElement): Validator {
+	private setElementClass(element: HTMLFormElement, type: 'error' | 'valid'): Validator {
 		const parent = this.getClassHolder(element);
 
-		utils.addClass(parent, this.settings.validClass);
-		utils.removeClass(parent, this.settings.errorClass);
+		const { errorClass, validClass } = this.settings;
 
-		return this;
-	}
-
-	private setElementErrorClass(element: HTMLFormElement): Validator {
-		const parent = this.getClassHolder(element);
-
-		utils.addClass(parent, this.settings.errorClass);
-		utils.removeClass(parent, this.settings.validClass);
+		utils.addClass(parent, type === 'valid' ? validClass : errorClass);
+		utils.removeClass(parent, type === 'valid' ? errorClass : validClass);
 
 		return this;
 	}
