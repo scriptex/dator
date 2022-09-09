@@ -1,4 +1,4 @@
-export default {
+export const validationTypes: Record<string, RegExp> = {
 	// First Name, Last Name, City
 	name: /^[a-zA-Z \-']{3,}$/,
 

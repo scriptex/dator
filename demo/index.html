@@ -6,15 +6,25 @@
 
 		<title>Dator Demo</title>
 
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.3/gh-fork-ribbon.min.css"
+		/>
+
 		<style type="text/css">
 			body {
 				font-family: monospace;
+				padding: 1rem;
 				margin: 0;
+			}
+
+			h2 {
+				text-align: center;
+				margin: 1rem 0;
 			}
 
 			form {
 				width: 18.75rem;
-				padding: 1rem 0;
 				margin: auto;
 			}
 
@@ -37,9 +47,15 @@
 			}
 
 			input[type='submit'] {
+				margin: 0;
 				-webkit-appearance: none;
 				-moz-appearance: none;
 				appearance: none;
+			}
+
+			social-links {
+				display: block;
+				padding: 1rem 0;
 			}
 
 			.is--invalid {
@@ -47,11 +63,37 @@
 				background-color: lightpink;
 			}
 		</style>
+
+		<script
+			src="https://unpkg.com/requirejs"
+			integrity="sha384-9M3Wd+wRkBqNHxK8F7Wg3Xs1Du/JXnCXgVdJ+G6KkYBvGol8vSgEiBdd8+MTaYtk"
+			crossorigin="anonymous"
+		></script>
+
+		<script
+			src="https://unpkg.com/scriptex-socials"
+			async
+			integrity="sha384-FDS8WECJvE4bGb+arLPh3DSv0mrVHD+hJRf+UaM6rVMT+wBleSgUlog90rrtgHH1"
+			crossorigin="anonymous"
+		></script>
 	</head>
 	<body>
+		<a
+			href="https://github.com/scriptex/dator"
+			title="See code on Github"
+			class="github-fork-ribbon"
+			data-ribbon="See code on Github"
+		>
+			See code on Github
+		</a>
+
+		<h2>Dator - A form validator library</h2>
+
 		<form>
 			<input type="text" name="full-name" value="" placeholder="Enter name" required data-validate="name" />
+
 			<input type="number" name="zipcode" value="" placeholder="Enter ZIP" required data-validate="zip" />
+
 			<input
 				type="text"
 				name="text-field"
@@ -60,8 +102,11 @@
 				required
 				data-validate="presence"
 			/>
+
 			<input type="email" name="email" value="" placeholder="Your email address" required data-validate="email" />
+
 			<input type="tel" name="phone" value="" placeholder="Enter phone number" required data-validate="phone" />
+
 			<input
 				type="text"
 				name="address"
@@ -70,6 +115,7 @@
 				required
 				data-validate="address"
 			/>
+
 			<input
 				type="number"
 				name="whole-num"
@@ -78,6 +124,7 @@
 				required
 				data-validate="integer"
 			/>
+
 			<input
 				type="number"
 				name="floating-num"
@@ -86,6 +133,7 @@
 				required
 				data-validate="float"
 			/>
+
 			<input
 				type="number"
 				name="cc"
@@ -94,6 +142,7 @@
 				required
 				data-validate="credit-card"
 			/>
+
 			<input
 				type="number"
 				name="cvc"
@@ -106,10 +155,12 @@
 			<input type="submit" value="Submit" />
 		</form>
 
-		<script src="../dist/dator.min.js"></script>
+		<social-links></social-links>
 
-		<script>
-			new Validator();
+		<script type="text/javascript">
+			requirejs(['./dist/index.js'], ({ Validator }) => {
+				new Validator();
+			});
 		</script>
 	</body>
 </html>
