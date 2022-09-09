@@ -15,7 +15,7 @@ export const validationTypes: Record<string, RegExp> = {
 	phone: /^\d{3}[- .]?\d{3}[- .]?\d{4}$/,
 
 	// Address
-	address: /[a-zA-Z0-9 \-]{5,}/,
+	address: /[a-zA-Z0-9 -]{5,}/,
 
 	// Integer Number
 	integer: /^[+-]?\d+$/,

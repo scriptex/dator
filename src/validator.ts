@@ -1,5 +1,3 @@
-declare var jQuery: any;
-
 import * as utils from './utils';
 import { validationTypes } from './validation-types';
 
@@ -108,6 +106,7 @@ export class Validator {
 			const eventName = this.getEventName(elementType);
 
 			if (this.hasJQuery) {
+				// @ts-ignore
 				jQuery(element).off(eventName, this.elementChange).off('validate', this.elementChange);
 			} else {
 				element.removeEventListener(eventName, this.elementChange, false);
@@ -297,7 +296,7 @@ export class Validator {
 	private getClassHolder(element: HTMLFormElement): HTMLFormElement | Element {
 		const parent = this.settings.classHolder;
 
-		if (!!parent) {
+		if (parent) {
 			return utils.findParentBySelector(element, parent);
 		}
 
