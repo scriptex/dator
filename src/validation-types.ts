@@ -1,4 +1,4 @@
-export default {
+export const validationTypes: Record<string, RegExp> = {
 	// First Name, Last Name, City
 	name: /^[a-zA-Z \-']{3,}$/,
 
@@ -15,7 +15,7 @@ export default {
 	phone: /^\d{3}[- .]?\d{3}[- .]?\d{4}$/,
 
 	// Address
-	address: /[a-zA-Z0-9 \-]{5,}/,
+	address: /[a-zA-Z0-9 -]{5,}/,
 
 	// Integer Number
 	integer: /^[+-]?\d+$/,

@@ -1,19 +1,24 @@
-/**
- * Internal dependencies
- */
-import * as utils from './utils.js';
-import validationTypes from './validation-types.js';
+import * as utils from './utils';
+import { validationTypes } from './validation-types';
 
-export default class Validator {
-	/**
-	 * Validator constructor
-	 *
-	 * @param  {Object} form        DOM Element
-	 * @param  {Object} settings    Validator settings
-	 * @param  {Object} customTypes Validation types
-	 *
-	 * @return 						Validator instance
-	 */
+export interface ValidatorOptions {
+	validClass: string;
+	errorClass: string;
+	validatedClass: string;
+	watch: boolean;
+	classHolder: string | null;
+	onSubmit: null | ((event: Event) => unknown);
+	afterValidate: null | (() => unknown);
+	beforeValidate: null | (() => unknown);
+	validationTypes: Record<string, RegExp>;
+}
+
+export class Validator {
+	form: HTMLFormElement | null = null;
+	settings: ValidatorOptions;
+	hasJQuery: boolean = false;
+	formElements: Array<HTMLFormElement | never> = [];
+
 	constructor(form = document.querySelector('form'), settings = {}, customTypes = {}) {
 		this.form = form;
 		this.settings = {
@@ -31,38 +36,26 @@ export default class Validator {
 			},
 			...settings
 		};
-		this.formElements = [...this.form.elements];
+		this.formElements = (this.form?.elements || []) as Array<HTMLFormElement | never>;
 		this.hasJQuery = 'jQuery' in window;
 
-		this.submitHandler = this.submit.bind(this);
-		this.elementChangeHandler = this.elementChange.bind(this);
+		this.elementChange = this.elementChange.bind(this);
+		this.validateElement = this.validateElement.bind(this);
 
 		this.init();
 
 		return this;
 	}
 
-	/**
-	 * Initialize it
-	 *
-	 * @return {Object}
-	 */
-	init() {
-		this.form.setAttribute('novalidate', true);
+	private init(): Validator {
+		this.form?.setAttribute('novalidate', 'novalidate');
 
 		this.bind();
 
 		return this;
 	}
 
-	/**
-	 * Get event name
-	 *
-	 * @param  {String} type Field type
-	 *
-	 * @return {String}
-	 */
-	getEventName(type) {
+	private getEventName(type: string): string {
 		switch (type) {
 			case 'color':
 			case 'date':
@@ -79,71 +72,51 @@ export default class Validator {
 			case 'url':
 			case 'week':
 				return 'input';
-				// @ts-ignore
-				break;
 			default:
 				return 'change';
 		}
 	}
 
-	/**
-	 * Attach event listeners
-	 *
-	 * @return {Object}
-	 */
-	bind() {
-		this.form.addEventListener('submit', this.submitHandler, false);
+	private bind(): Validator {
+		this.form?.addEventListener('submit', this.submit, false);
 
 		if (!this.settings.watch) {
 			return this;
 		}
 
-		this.formElements.forEach(element => {
+		Array.from(this.formElements).forEach((element: HTMLFormElement) => {
 			const elementType = element.type;
 			const eventName = this.getEventName(elementType);
 
 			if (this.hasJQuery) {
-				// @ts-ignore
-				jQuery(element).on(eventName, this.elementChangeHandler).on('validate', this.elementChangeHandler);
+				jQuery(element).on(eventName, this.elementChange).on('validate', this.elementChange);
 			} else {
-				element.addEventListener(eventName, this.elementChangeHandler, false);
+				element.addEventListener(eventName, this.elementChange, false);
 			}
 		});
 
 		return this;
 	}
 
-	/**
-	 * Detach event listeners
-	 *
-	 * @return {Object}
-	 */
-	unbind() {
-		this.form.removeEventListener('submit', this.submitHandler, false);
+	public unbind(): Validator {
+		this.form?.removeEventListener('submit', this.submit, false);
 
-		this.formElements.forEach(element => {
+		Array.from(this.formElements).forEach(element => {
 			const elementType = element.type;
 			const eventName = this.getEventName(elementType);
 
 			if (this.hasJQuery) {
 				// @ts-ignore
-				jQuery(element).off(eventName, this.elementChangeHandler).off('validate', this.elementChangeHandler);
+				jQuery(element).off(eventName, this.elementChange).off('validate', this.elementChange);
 			} else {
-				element.removeEventListener(eventName, this.elementChangeHandler, false);
+				element.removeEventListener(eventName, this.elementChange, false);
 			}
 		});
 
 		return this;
 	}
 
-	/**
-	 * Submit handler
-	 *
-	 * @param  {Object} event
-	 *
-	 * @return {Object}
-	 */
-	submit(event) {
+	private submit(event: Event): Validator {
 		const elements = this.formElements;
 		const elementsLen = elements.length;
 
@@ -182,27 +155,13 @@ export default class Validator {
 		return this;
 	}
 
-	/**
-	 * Element change listener
-	 *
-	 * @param  {Object} event
-	 *
-	 * @return {Object}
-	 */
-	elementChange(event) {
-		this.validateElement(event.target);
+	private elementChange(event: Event): Validator {
+		this.validateElement(event.target as HTMLFormElement | null);
 
 		return this;
 	}
 
-	/**
-	 * Get form element's validity
-	 *
-	 * @param  {Object} element DOM Element
-	 *
-	 * @return {Boolean}
-	 */
-	getElementValidity(element) {
+	private getElementValidity(element: HTMLFormElement): boolean {
 		const name = element.nodeName.toUpperCase();
 		const type = element.type.toUpperCase();
 
@@ -239,26 +198,21 @@ export default class Validator {
 		return isValid;
 	}
 
-	/**
-	 * Validate a form element
-	 *
-	 * @param  {Object} element DOM Element
-	 *
-	 * @return {Boolean}]
-	 */
-	validateElement(element) {
+	private validateElement(element: HTMLFormElement | null): boolean {
+		if (!element) {
+			return true;
+		}
+
 		const isValid = this.getElementValidity(element);
 
 		if (isValid) {
-			this.setElementValidClass(element);
+			this.setElementClass(element, 'valid');
 		} else {
-			this.setElementErrorClass(element);
+			this.setElementClass(element, 'error');
 		}
 
 		if (this.hasJQuery) {
-			// @ts-ignore
 			jQuery(element).data('validator', { valid: isValid });
-			// @ts-ignore
 			jQuery(element).trigger('validate:change', isValid);
 		} else {
 			element.validator = { valid: isValid };
@@ -267,32 +221,18 @@ export default class Validator {
 		return isValid;
 	}
 
-	/**
-	 * Validate a select field
-	 *
-	 * @param  {Object} element DOM Element
-	 *
-	 * @return {Boolean}
-	 */
-	selectValidation(element) {
+	private selectValidation(element: HTMLFormElement): boolean {
 		return !!element.value;
 	}
 
-	/**
-	 * Validate a radio buttons group
-	 *
-	 * @param  {Object} element DOM Element
-	 *
-	 * @return {Boolean}
-	 */
-	radioValidation(element) {
+	private radioValidation(element: HTMLFormElement): boolean {
 		const { name } = element;
-		const siblings = (this.form || document).querySelectorAll('[name="' + name + '"]');
+		const siblings = Array.from(this.form?.querySelectorAll('[name="' + name + '"]') || []) as HTMLFormElement[];
 
 		let isValid = false;
 
-		for (let i = 0; i < siblings.length; i++) {
-			if (siblings[i].getAttribute('required') !== null && siblings[i].checked) {
+		for (const sibling of siblings) {
+			if (sibling.getAttribute('required') !== null && sibling.checked) {
 				isValid = true;
 			}
 		}
@@ -300,27 +240,13 @@ export default class Validator {
 		return isValid;
 	}
 
-	/**
-	 * Validate a checkbox
-	 *
-	 * @param  {Object} element DOM Element
-	 *
-	 * @return {Boolean}
-	 */
-	checkboxValidation(element) {
+	private checkboxValidation(element: HTMLFormElement): boolean {
 		return element.checked;
 	}
 
-	/**
-	 * Validate a text field
-	 *
-	 * @param  {Object} element DOM Element
-	 *
-	 * @return {Boolean}
-	 */
-	fieldValidation(element) {
+	private fieldValidation(element: HTMLFormElement): boolean {
 		let isValid = true;
-		let validationType = element.getAttribute('data-validate');
+		let validationType: string | string[] | null = element.getAttribute('data-validate');
 
 		if (!validationType) {
 			return isValid;
@@ -328,11 +254,9 @@ export default class Validator {
 
 		validationType = validationType.replace(/^\['|'\]$/g, '').split(/',\s?'/);
 
-		for (let i = 0; i < validationType.length; i++) {
-			let validator = validationType[i];
-
+		for (let validator of validationType) {
 			if (validator.match(/\(([^)]+)\)/)) {
-				validator = validator.replace(validator.match(/\(([^)]+)\)/)[0], '');
+				validator = validator.replace(validator.match(/\(([^)]+)\)/)?.[0] || '', '');
 			}
 
 			const validatorValid = this.validate(element.value, validator);
@@ -349,65 +273,28 @@ export default class Validator {
 		return isValid;
 	}
 
-	/**
-	 * Sets valid class to element
-	 *
-	 * @param  {Object} element DOM Element
-	 *
-	 * @return {Object}
-	 */
-	setElementValidClass(element) {
+	private setElementClass(element: HTMLFormElement, type: 'error' | 'valid'): Validator {
 		const parent = this.getClassHolder(element);
 
-		utils.addClass(parent, this.settings.validClass);
-		utils.removeClass(parent, this.settings.errorClass);
+		const { errorClass, validClass } = this.settings;
+
+		utils.addClass(parent, type === 'valid' ? validClass : errorClass);
+		utils.removeClass(parent, type === 'valid' ? errorClass : validClass);
 
 		return this;
 	}
 
-	/**
-	 * Sets error class to element
-	 *
-	 * @param  {Object} element DOM Element
-	 *
-	 * @return {Object}
-	 */
-	setElementErrorClass(element) {
-		const parent = this.getClassHolder(element);
-
-		utils.addClass(parent, this.settings.errorClass);
-		utils.removeClass(parent, this.settings.validClass);
-
-		return this;
-	}
-
-	/**
-	 * Get the element on which a classname should be applied
-	 *
-	 * @param  {Object} element DOM Element
-	 *
-	 * @return {Object}
-	 */
-	getClassHolder(element) {
+	private getClassHolder(element: HTMLFormElement): HTMLFormElement | Element {
 		const parent = this.settings.classHolder;
 
-		if (!!parent) {
+		if (parent) {
 			return utils.findParentBySelector(element, parent);
 		}
 
 		return element;
 	}
 
-	/**
-	 * Actual validation
-	 *
-	 * @param  {String} value     Value
-	 * @param  {String} validator Validation type
-	 *
-	 * @return {Boolean}
-	 */
-	validate(value, validator) {
-		// @ts-ignore
+	private validate(value: string, validator: string): RegExpMatchArray | null {
 		return value.match(this.settings.validationTypes[validator]);
 	}
 }

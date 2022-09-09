@@ -1,35 +1,38 @@
 {
 	"name": "dator",
-	"version": "1.1.0",
-	"description": "Front-end forms validator",
-	"main": "dist/dator.min.js",
-	"scripts": {
-		"build": "webpack",
-		"start": "webpack --watch"
+	"version": "2.0.0",
+	"description": "Easy frontend forms validator",
+	"keywords": [
+		"Validator",
+		"Validation",
+		"Form Validator",
+		"Form Validation"
+	],
+	"homepage": "https://dator.atanas.info",
+	"bugs": {
+		"url": "https://github.com/scriptex/dator/issues",
+		"email": "hi@atanas.info"
 	},
+	"license": "MIT",
+	"author": "Atanas Atanasov <hi@atanas.info> (https://atanas.info)",
+	"funding": "https://github.com/sponsors/scriptex",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/scriptex/dator.git"
+		"url": "github:scriptex/dator"
 	},
-	"keywords": [
-		"Form",
-		"Validator",
-		"Front-end",
-		"Validation",
-		"Live",
-		"Validation"
-	],
-	"author": "Atanas Atanasov <scriptex.bg@gmail.com> (https://atanas.info)",
-	"license": "MIT",
-	"bugs": {
-		"url": "https://github.com/scriptex/dator/issues"
+	"scripts": {
+		"copy": "cp -rf dist demo",
+		"clean": "rm -rf dist && rm -rf demo/dist",
+		"build": "yarn clean && webpack && yarn copy",
+		"start": "yarn clean && webpack --watch && yarn copy"
 	},
-	"homepage": "https://github.com/scriptex/dator#readme",
+	"dependencies": {},
 	"devDependencies": {
-		"@babel/cli": "7.18.10",
-		"@babel/core": "7.19.0",
-		"@babel/preset-env": "7.19.0",
-		"babel-loader": "8.2.5",
+		"@types/jquery": "3.5.14",
+		"ts-loader": "9.3.1",
+		"typescript": "4.8.3",
 		"webpack": "5.74.0",
 		"webpack-cli": "4.10.0"
 	}
