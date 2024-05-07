@@ -30,7 +30,7 @@
 	},
 	"dependencies": {},
 	"devDependencies": {
-		"@types/jquery": "3.5.29",
+		"@types/jquery": "3.5.30",
 		"ts-loader": "9.5.1",
 		"typescript": "5.4.5",
 		"webpack": "5.91.0",
