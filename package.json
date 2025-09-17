@@ -30,10 +30,10 @@
 	},
 	"dependencies": {},
 	"devDependencies": {
-		"@types/jquery": "3.5.32",
-		"ts-loader": "9.5.2",
+		"@types/jquery": "3.5.33",
+		"ts-loader": "9.5.4",
 		"typescript": "5.9.2",
-		"webpack": "5.101.2",
+		"webpack": "5.101.3",
 		"webpack-cli": "6.0.1"
 	}
 }
